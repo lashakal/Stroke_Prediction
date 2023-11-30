@@ -44,7 +44,7 @@ bmi = st.number_input("BMI", min_value=0.0)
 smoking_status = st.selectbox("Smoking Status", ("unknown", "formerly smoked", "never smoked", "smokes"))  # 0: unknown, 1: formerly smoked, 2: never smoked, 3: smokes
 
 
-print(gender, age, hypertension, heart_disease, ever_married, work_type, Residence_type, avg_glucose_level, bmi, smoking_status)
+print("Changed User_Input: ",gender, age, hypertension, heart_disease, ever_married, work_type, Residence_type, avg_glucose_level, bmi, smoking_status)
  
 # Button to make prediction
 if st.button('Predict Stroke Risk'):
