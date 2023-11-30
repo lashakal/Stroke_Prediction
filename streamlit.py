@@ -1,9 +1,10 @@
 import streamlit as st
+import prediction_model
 
 st.title('Stroke Prediction  :heart:')
 st.caption('Created by:   Amadin Ahmed   Lasha Kaliashvili   Mikheil Uglava')
 st.text("")
-st.markdown("According to the World Health Organization (WHO), stroke is the leading cause of disability worldwide and the second leading cause of death. Over the last 17years, the lifetime risk of developing a stroke has increased by 50% and now 1 in 4 people is estimated to have a stroke in their lifetime. In this project, we are aiming to design a stroke prediction model with a user-friendly interface that can assess an individual’s risk of stroke based on their health data and medical history using the SVM classification algorithm. ")
+st.markdown("According to the World Health Organization (WHO), stroke is the leading cause of disability worldwide and the second leading cause of death. Over the last 17years, the lifetime risk of developing a stroke has increased by 50% and now 1 in 4 people is estimated to have a stroke in their lifetime. In this project, we are aiming to design a stroke prediction model with a user-friendly interface that can assess an individual’s risk of stroke based on their health data and medical history using the KNN classification algorithm. ")
 st.text("")
 
 
@@ -27,7 +28,10 @@ def predict_stroke_risk(gender, age, hypertension, heart_disease, ever_married, 
     user_data = [gender_num, age, hypertension_num, heart_disease_num, ever_married_num, work_type_num, Residence_type_num, avg_glucose_level, bmi, smoking_status_num]
 
     # Use the model to make a prediction
-    return user_data[0], user_data
+    prediction = prediction_model.KNN(user_data)
+    return prediction, user_data
+
+    # return user_data[0], user_data
 
 
 
@@ -55,10 +59,7 @@ if st.button('Predict Stroke Risk'):
     
     
     # Display prediction
-    #if prediction == 1:
-    #    st.error('High risk of stroke-related health issues.')
-    #elif prediction == 0:
-    #    st.success('Low risk of stroke-related health issues.')
-
-
-# i need to import the modal then Run predictions
+    if prediction == 1:
+       st.error('High risk of stroke-related health issues.')
+    elif prediction == 0:
+       st.success('Low risk of stroke-related health issues.')
