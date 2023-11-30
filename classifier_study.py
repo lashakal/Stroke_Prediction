@@ -4,7 +4,8 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.svm import SVC
 from sklearn.naive_bayes import GaussianNB
 from sklearn import neighbors
-from sklearn.metrics import accuracy_score, precision_score, f1_score, recall_score
+from sklearn.metrics import accuracy_score, precision_score, recall_score
+from sklearn.metrics import confusion_matrix
 
 stroke_dataset = pd.read_csv("healthcare-dataset-stroke-data.csv")
 stroke_features = stroke_dataset.drop(['id', 'stroke'], axis=1)
@@ -70,12 +71,14 @@ knn_predictions = knn.predict(test_features)
 knn_accuracy = accuracy_score(test_target, knn_predictions)
 knn_precision = precision_score(test_target, knn_predictions)
 knn_recall = recall_score(test_target, knn_predictions)
-knn_f1_score = f1_score(test_target, knn_predictions)
+knn_confusion_matrix = confusion_matrix(test_target, knn_predictions)
 
 print(f'KNN Accuracy: {knn_accuracy:.2f}')
 print(f'KNN Precision: {knn_precision:.2f}')
 print(f'KNN Recall: {knn_recall:.2f}')
-print(f'KNN F1 Score: {knn_f1_score:.2f}')
+print('KNN Confusion Matrix:')
+print(knn_confusion_matrix)
+
 
 
 # SVM Classifier - Support Vector Machine
@@ -86,12 +89,13 @@ svm_predictions = svm.predict(test_features)
 svm_accuracy = accuracy_score(test_target, svm_predictions)
 svm_precision = precision_score(test_target, svm_predictions)
 svm_recall = recall_score(test_target, svm_predictions)
-svm_f1_score = f1_score(test_target, svm_predictions)
+svm_confusion_matrix = confusion_matrix(test_target, svm_predictions)
 
 print(f'\nSVM Accuracy: {svm_accuracy:.2f}')
 print(f'SVM Precision: {svm_precision:.2f}')
 print(f'SVM Recall: {svm_recall:.2f}')
-print(f'SVM F1 Score: {svm_f1_score:.2f}')
+print('SVM Confusion Matrix:')
+print(svm_confusion_matrix)
 
 
 # Naive Bayes
@@ -102,12 +106,13 @@ nb_predictions = nb.predict(test_features)
 nb_accuracy = accuracy_score(test_target, nb_predictions)
 nb_precision = precision_score(test_target, nb_predictions)
 nb_recall = recall_score(test_target, nb_predictions)
-nb_f1_score = f1_score(test_target, nb_predictions)
+nb_confusion_matrix = confusion_matrix(test_target, nb_predictions)
 
 print(f'\nNaive Bayes Accuracy: {nb_accuracy:.2f}')
 print(f'Naive Bayes Precision: {nb_precision:.2f}')
 print(f'Naive Bayes Recall: {nb_recall:.2f}')
-print(f'Naive Bayes F1 Score: {nb_f1_score:.2f}')
+print('Naive Bayes Confusion Matrix:')
+print(nb_confusion_matrix)
 
 
 # Random Forest Classifier
@@ -118,9 +123,10 @@ rf_predictions = rf.predict(test_features)
 rf_accuracy = accuracy_score(test_target, rf_predictions)
 rf_precision = precision_score(test_target, rf_predictions)
 rf_recall = recall_score(test_target, rf_predictions)
-rf_f1_score = f1_score(test_target, rf_predictions)
+rf_confusion_matrix = confusion_matrix(test_target, rf_predictions)
 
 print(f'\nRandom Forest Accuracy: {rf_accuracy:.2f}')
 print(f'Random Forest Precision: {rf_precision:.2f}')
 print(f'Random Forest Recall: {rf_recall:.2f}')
-print(f'Random Forest F1 Score: {rf_f1_score:.2f}')
+print('Random Forest Confusion Matrix:')
+print(rf_confusion_matrix)
