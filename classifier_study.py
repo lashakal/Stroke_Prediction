@@ -1,5 +1,7 @@
 import pandas as pd
-from sklearn.ensemble import RandomForestClassifier
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.tree import DecisionTreeClassifier
 from sklearn.preprocessing import LabelEncoder
 from sklearn.svm import SVC
 from sklearn.naive_bayes import GaussianNB
@@ -23,8 +25,6 @@ columns_to_encode = ['gender', 'ever_married', 'work_type', 'Residence_type', 's
 for column in columns_to_encode:
     stroke_features[column] = label_encoder.fit_transform(stroke_features[column])
 
-
-# KNN Classifier
 # Split the dataset - 80% for training and 20% for testing
 # 199 for training and 50 for testing
 train_features = []
@@ -48,19 +48,19 @@ for i in range(448, 498):
 
 # KNN Classifier
 # finding appropriate value of k
-# error_rate = []
-# for i in range(1, 50):
-#     knn = neighbors.KNeighborsClassifier(n_neighbors = i)
-#     knn.fit(train_features, train_target)
-#     predict_i = knn.predict(test_features)
-#     error_rate.append(np.mean(predict_i != test_target))
+error_rate = []
+for i in range(1, 40):
+    knn = neighbors.KNeighborsClassifier(n_neighbors = i)
+    knn.fit(train_features, train_target)
+    predict_i = knn.predict(test_features)
+    error_rate.append(np.mean(predict_i != test_target))
 
-# plt.figure(figsize=(10, 6))
-# plt.plot(range(1, 50), error_rate, color = 'blue', linestyle = 'dashed', marker = 'o')
-# plt.title("Error rate VS K values of KNN")
-# plt.xlabel("K values")
-# plt.ylabel("Error rate")
-# plt.show()
+plt.figure(figsize=(10, 6))
+plt.plot(range(1, 40), error_rate, color = 'blue', linestyle = 'dashed', marker = 'o')
+plt.title("Error rate VS K values of KNN")
+plt.xlabel("K values")
+plt.ylabel("Error rate")
+plt.show()
 
 # from the graph - k=25
 n_neighbors = 25
@@ -80,9 +80,8 @@ print('KNN Confusion Matrix:')
 print(knn_confusion_matrix)
 
 
-
 # SVM Classifier - Support Vector Machine
-svm = SVC()
+svm = SVC(kernel='linear')
 svm.fit(train_features, train_target)
 svm_predictions = svm.predict(test_features)
 
@@ -115,18 +114,18 @@ print('Naive Bayes Confusion Matrix:')
 print(nb_confusion_matrix)
 
 
-# Random Forest Classifier
-rf = RandomForestClassifier(n_estimators=100, random_state=42)
-rf.fit(train_features, train_target)
-rf_predictions = rf.predict(test_features)
+# Decision Tree classifier
+dt = DecisionTreeClassifier(criterion='entropy')
+dt.fit(train_features, train_target)
+dt_predictions = dt.predict(test_features)
 
-rf_accuracy = accuracy_score(test_target, rf_predictions)
-rf_precision = precision_score(test_target, rf_predictions)
-rf_recall = recall_score(test_target, rf_predictions)
-rf_confusion_matrix = confusion_matrix(test_target, rf_predictions)
+dt_accuracy = accuracy_score(test_target, dt_predictions)
+dt_precision = precision_score(test_target, dt_predictions)
+dt_recall = recall_score(test_target, dt_predictions)
+dt_confusion_matrix = confusion_matrix(test_target, dt_predictions)
 
-print(f'\nRandom Forest Accuracy: {rf_accuracy:.2f}')
-print(f'Random Forest Precision: {rf_precision:.2f}')
-print(f'Random Forest Recall: {rf_recall:.2f}')
-print('Random Forest Confusion Matrix:')
-print(rf_confusion_matrix)
+print(f'\nDecision Tree Accuracy: {dt_accuracy:.2f}')
+print(f'Decision Tree Precision: {dt_precision:.2f}')
+print(f'Decision Tree Recall: {dt_recall:.2f}')
+print('Decision Tree Confusion Matrix:')
+print(dt_confusion_matrix)
