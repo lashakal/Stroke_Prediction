@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import random
 import matplotlib.pyplot as plt
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.preprocessing import LabelEncoder
@@ -38,32 +39,35 @@ for i in range(0, 199):
 for i in range(199, 249):
     test_features.append(stroke_features.iloc[i])
     test_target.append(stroke_target.iloc[i])
-for i in range(249, 448):
-    train_features.append(stroke_features.iloc[i])
-    train_target.append(stroke_target.iloc[i])
-for i in range(448, 498):
-    test_features.append(stroke_features.iloc[i])
-    test_target.append(stroke_target.iloc[i])
+
+random_seed = 4
+random.seed(random_seed)
+for i in range(199):
+    train_features.append(random.choice(stroke_features.iloc[249:].values.tolist()))
+    train_target.append(random.choice(stroke_target.iloc[249:].values.tolist()))
+for i in range(50):
+    test_features.append(random.choice(stroke_features.iloc[249:].values.tolist()))
+    test_target.append(random.choice(stroke_target.iloc[249:].values.tolist()))
 
 
 # KNN Classifier
 # finding appropriate value of k
 error_rate = []
-for i in range(1, 40):
+for i in range(1, 50):
     knn = neighbors.KNeighborsClassifier(n_neighbors = i)
     knn.fit(train_features, train_target)
     predict_i = knn.predict(test_features)
     error_rate.append(np.mean(predict_i != test_target))
 
 plt.figure(figsize=(10, 6))
-plt.plot(range(1, 40), error_rate, color = 'blue', linestyle = 'dashed', marker = 'o')
+plt.plot(range(1, 50), error_rate, color = 'blue', linestyle = 'dashed', marker = 'o')
 plt.title("Error rate VS K values of KNN")
 plt.xlabel("K values")
 plt.ylabel("Error rate")
 plt.show()
 
-# from the graph - k=25
-n_neighbors = 25
+# from the graph - k=35
+n_neighbors = 35
 knn = neighbors.KNeighborsClassifier(n_neighbors)
 knn.fit(train_features, train_target)
 knn_predictions = knn.predict(test_features)

@@ -1,6 +1,6 @@
 import pandas as pd
+from sklearn import neighbors
 from sklearn.preprocessing import LabelEncoder
-from sklearn.svm import SVC
 
 # In user input list, we need to have the following:
 # gender - 0 (Female), 1 (Male)
@@ -18,8 +18,8 @@ from sklearn.svm import SVC
 # user_input = [1, 22, 0, 0, 0, 2, 1, 90, 30, 2]
 
 
-# SVM classifier
-def SVM(user_input):
+# KNN classifier
+def KNN(user_input):
     stroke_features, stroke_target = preprocessing()
 
     train_features = []
@@ -29,10 +29,10 @@ def SVM(user_input):
         train_features.append(stroke_features.iloc[i])
         train_target.append(stroke_target.iloc[i])
 
-    # Train the SVM model
-    svm = SVC(kernel='linear')
-    svm.fit(train_features, train_target)
-    prediction = svm.predict([user_input])
+    # Train the KNN model
+    knn = neighbors.KNeighborsClassifier(n_neighbors = 35)
+    knn.fit(train_features, train_target)
+    prediction = knn.predict([user_input])
 
     return prediction[0]
 

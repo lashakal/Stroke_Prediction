@@ -28,7 +28,7 @@ def predict_stroke_risk(gender, age, hypertension, heart_disease, ever_married, 
     user_data = [gender_num, age, hypertension_num, heart_disease_num, ever_married_num, work_type_num, Residence_type_num, avg_glucose_level, bmi, smoking_status_num]
 
     # Use the model to make a prediction
-    prediction = prediction_model.SVM(user_data)
+    prediction = prediction_model.KNN(user_data)
     return prediction, user_data
 
     # return user_data[0], user_data
