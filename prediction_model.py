@@ -37,7 +37,7 @@ def KNN(user_input):
     return prediction[0]
 
 def preprocessing():
-    stroke_dataset = pd.read_csv("/Users/lasha/PycharmProjects/Stroke_Prediction/healthcare-dataset-stroke-data.csv")
+    stroke_dataset = pd.read_csv("healthcare-dataset-stroke-data.csv")
     stroke_features = stroke_dataset.drop(['id', 'stroke'], axis=1)
     stroke_target = stroke_dataset['stroke']
 
