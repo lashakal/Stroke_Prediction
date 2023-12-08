@@ -52,19 +52,19 @@ for i in range(50):
 
 # KNN Classifier
 # finding appropriate value of k
-error_rate = []
-for i in range(1, 50):
-    knn = neighbors.KNeighborsClassifier(n_neighbors = i)
-    knn.fit(train_features, train_target)
-    predict_i = knn.predict(test_features)
-    error_rate.append(np.mean(predict_i != test_target))
-
-plt.figure(figsize=(10, 6))
-plt.plot(range(1, 50), error_rate, color = 'blue', linestyle = 'dashed', marker = 'o')
-plt.title("Error rate VS K values of KNN")
-plt.xlabel("K values")
-plt.ylabel("Error rate")
-plt.show()
+# error_rate = []
+# for i in range(1, 50):
+#     knn = neighbors.KNeighborsClassifier(n_neighbors = i)
+#     knn.fit(train_features, train_target)
+#     predict_i = knn.predict(test_features)
+#     error_rate.append(np.mean(predict_i != test_target))
+#
+# plt.figure(figsize=(10, 6))
+# plt.plot(range(1, 50), error_rate, color = 'blue', linestyle = 'dashed', marker = 'o')
+# plt.title("Error rate VS K values of KNN")
+# plt.xlabel("K values")
+# plt.ylabel("Error rate")
+# plt.show()
 
 # from the graph - k=35
 n_neighbors = 35
@@ -84,8 +84,8 @@ print('KNN Confusion Matrix:')
 print(knn_confusion_matrix)
 
 
-# SVM Classifier - Support Vector Machine
-svm = SVC(kernel='linear')
+# SVM Classifier - Support Vector Machine - grid search conducted in svm_parameter_tuning.py
+svm = SVC(kernel='linear', C=1, gamma=1)
 svm.fit(train_features, train_target)
 svm_predictions = svm.predict(test_features)
 
